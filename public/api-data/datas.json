@@ -1,0 +1,74 @@
+[
+  {
+    "id": 0,
+    "image": "/api-data/images/0.jpg",
+    "title": "An Open Letter to NZ Game Developers",
+    "contentText": "Like all businesses providing goods and services in New Zealand, game studios are subject to rules and regulations around consumer protection. The Commerce Commission is responsible for monitoring and, where appropriate, enforcing these rules, including under the Consumer Guarantees Act and the Fair Trading Act. The Commission has recently undertaken some compliance monitoring of the New Zealand gaming industry, and has written an open letter to the sector setting out its findings.",
+    "date": "21 July 2025",
+    "website": "https://nzgda.com/news/an-open-letter-to-nz-game-developers/"
+  },
+  {
+    "id": 1,
+    "image": "/api-data/images/1.jpg",
+    "title": "NZ On Air announces second-year GDSR recipients — showing improved economic value and job creation",
+    "contentText": "Forty game development studios across Aotearoa New Zealand will receive a share of $22.44m in the second year of the Game Development Sector Rebate (GDSR), with initial data showing a 20.5 percent increase in roles and each GDSR-funded employee generating over $525,000 in revenue. In the second year of the GDSR, the number of studios receiving the rebate has also grown by 24 percent, up from 33 in 2024, showing more studios are meeting eligibility thresholds and actively scaling in response. “These figures are hugely encouraging to see,” says Chantelle Cole, NZ On Air GDSR Programme Director. “They show that the GDSR is not only allowing studios to sustain jobs but actively grow their teams.”",
+    "date": "10 July 2025",
+    "website": "https://nzgda.com/news/nz-on-air-announces-second-year-gdsr-recipients-showing-improved-economic-value-and-job-creation/"
+  },
+  {
+    "id": 2,
+    "image": "/api-data/images/2.jpg",
+    "title": "June Newsletter: NZGDC updates, the latest in govt advocacy, new jobs & more!",
+    "contentText": "",
+    "date": "1 July 2025",
+    "website": "https://nzgda.com/news/june-newsletter-nzgdc-updates-the-latest-in-govt-advocacy-new-jobs-more/"
+  },
+  {
+    "id": 3,
+    "image": "/api-data/images/3.jpg",
+    "title": "NZGDA Submits Feedback on Toi Mai’s Proposed Qualifications",
+    "contentText": "NZGDA has submitted industry feedback on Toi Mai’s proposed: Level 3 NZ Certificate in Creative Production/Promotion Level 5 NZ Diploma in Creative Production and Strategy We appreciate Toi Mai’s engagement with the sector and the opportunity to help shape qualifications that reflect real-world game development needs. Level 3 Certificate There is strong support for this entry-level qualification. It aligns well with creative production roles and provides a clear starting point for learners. Some concern was raised about including tax and business content at this level, but overall, it was seen as a relevant and useful pathway into the industry.",
+    "date": "19 June 2025",
+    "website": "https://nzgda.com/news/nzgda-submits-feedback-on-toi-mais-proposed-qualifications/"
+  },
+  {
+    "id": 4,
+    "image": "/api-data/images/4.jpg",
+    "title": "NZGDA Submission on the Education and Training Amendment Bill",
+    "contentText": "The New Zealand Game Developers Association has made a submission on the Education and Training Amendment Bill, which outlines the proposed replacement of Workforce Development Councils with Industry Skills Boards. Our response raised key concerns about the exclusion of digital technologies, including game development, from the scope of the new boards. This risks weakening the talent pipeline for a sector that is already contributing over $548 million annually to New Zealand’s economy and generating over $140 million in tax revenue.",
+    "date": "18 June 2025",
+    "website": "https://nzgda.com/news/nzgda-submission-on-the-education-and-training-amendment-bill/"
+  },
+  {
+    "id": 5,
+    "image": "/api-data/images/5.jpg",
+    "title": "NZGDA Publishes Open Letter on Vocational Education and Training Reforms",
+    "contentText": "Today, the New Zealand Game Developers Association has released an open letter outlining serious concerns with the proposed vocational education and training reforms. The open letter has been signed by studios, educators, and industry leaders across the game development and wider creative technology sectors. It highlights the risk that the reforms will exclude digital technologies from meaningful participation in the new Industry Skills Board structure.",
+    "date": "10 June 2025",
+    "website": "https://nzgda.com/news/nzgda-publishes-open-letter-on-vocational-education-and-training-reformsopen-letter-header/"
+  },
+  {
+    "id": 6,
+    "image": "/api-data/images/6.jpg",
+    "title": "Wellington Games Week 2025 – open!",
+    "contentText": "Wellington Games Week (WGW) is back for 2025, taking place from 27 September – 4 October. This exciting week celebrates the vibrant NZ games community, inviting developers, publishers, educators, studios, businesses, and all gaming enthusiasts to join us in Wellington. We are now accepting applications for this year’s lineup of satellite events, including workshops, exhibitions, live demos, tournaments, and more. Whether in-person, online, or hybrid, events that align with our core pillars of community, inclusivity and creativity, are encouraged to apply. WGW welcomes a diverse range of game types, from digital to non-digital, to showcase the full spectrum of game creativity.",
+    "date": "6 June 2025",
+    "website": "https://nzgda.com/news/wellington-games-week-2025-open/"
+  },
+  {
+    "id": 7,
+    "image": "/api-data/images/7.jpg",
+    "title": "From Parliament to playtesting – all roads lead to NZGDC",
+    "contentText": "",
+    "date": "29 May 2025",
+    "website": "https://nzgda.com/news/may-newsletter-from-parliament-to-playtesting-all-roads-lead-to-nzgdc/"
+  },
+  {
+    "id": 8,
+    "image": "/api-data/images/8.jpg",
+    "title": "Are you looking for a volunteer project and are passionate about games?",
+    "contentText": "Then you’ve come to the right place! We currently have three volunteer opportunities available and could really use your help. Web page designer needed for NZGDC programme page! Do you love web design and are keen to make a difference? Then we need you to design this year’s NZGDC programme page. This will involve designing an engaging interface that fetches schedule information via an API, making it easier for everyone to access our conference programme.  If you’re experienced in HTML, CSS, JavaScript, and working with APIs, and are keen to volunteer and be a part of what makes NZGDC special, we’d love to hear from you!",
+    "date": "29 May 2025",
+    "website": "https://nzgda.com/news/are-you-looking-for-a-volunteer-project-and-are-passionate-about-games/"
+  }
+]

@@ -1,0 +1,106 @@
+/* Page demo chrome */
+.page {
+  padding: clamp(16px, 3.5vw, 48px);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.muted { color: #6b7280; margin-bottom: 16px; }
+
+/* Slider layout */
+.slider-wrap {
+  position: relative;
+}
+
+.slider {
+  display: grid;            /* grid with auto-flow: column gives simple gap handling */
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(240px, 1fr);
+  gap: 16px;
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  padding: 8px 40px;       /* space for arrows */
+  outline: none;
+}
+
+/* Hide default scrollbar but keep accessibility */
+.slider::-webkit-scrollbar { height: 10px; }
+.slider::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 6px; }
+.slider:hover::-webkit-scrollbar-thumb { background: #94a3b8; }
+
+/* Card */
+.card {
+  scroll-snap-align: center;
+  border-radius: 16px;
+  min-height: 180px;
+  color: white;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  user-select: none;
+  cursor: pointer;
+}
+
+.card-body {
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.45), transparent 60%);
+  width: 100%;
+  border-radius: 0 0 16px 16px;
+}
+
+.card h3 {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+}
+
+.card p {
+  margin: 0 0 10px;
+  opacity: 0.9;
+}
+
+/* CTA on card */
+.card-cta {
+  background: white;
+  color: #111827;
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Nav buttons */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 0;
+  background: #111827;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.nav-btn.prev { left: 4px; }
+.nav-btn.next { right: 4px; }
+
+/* Responsive tuning */
+@media (min-width: 480px) {
+  .slider { grid-auto-columns: minmax(280px, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .slider { grid-auto-columns: minmax(320px, 1fr); }
+}
