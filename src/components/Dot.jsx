@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-const hoverStrokeColor = "#9ca4b2"; // on hover
-const staticColor      = "white";   // default
-const displayColor     = "#3f4d6b"; // active/current
+const hoverStrokeColor = "#3f4d6b"; // on hover
+const staticColor      = "#9ca4b2";   // default
+const displayColor     = "#11234A"; // active/current
 
 export default function Dot({
   id,

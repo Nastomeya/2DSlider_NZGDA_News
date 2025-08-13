@@ -23,7 +23,7 @@ export default function CardBoard({
         borderRadius: radiusPx,          // 0.2 units -> px
         background,
         border: `1px solid ${border}`,
-        boxShadow: shadow,
+        // boxShadow: shadow,
         overflow: 'hidden',
         ...style,
       }}

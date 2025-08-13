@@ -9,7 +9,8 @@ export default function CardCarousel({
   isMobile = false,
   cardWidth = 286,
   gap = 16,
-  visibleCount = 7,          // ← how many cards to show at once
+  visibleCount = 7,
+  style = {},
 }) {
   const N = datas.length;
 
@@ -76,6 +77,8 @@ export default function CardCarousel({
         height: `${finalCardHeight}px`,
         margin: "0 auto",
         maxWidth: "100%", // Ensure it doesn't exceed container
+        background: "transparent",
+        ...style,
       }}
     >
       <div

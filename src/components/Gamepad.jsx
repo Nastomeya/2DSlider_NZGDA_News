@@ -1,14 +1,6 @@
 import React from "react";
 import gamepadImage from "../assets/images/Gamepad-Vector.png";
 
-/**
- * Props
- * - width, height: in px
- * - position: [x, y] in px (relative to parent)
- * - rotation: degrees (Z only; optional)
- * - color: optional tint (e.g. "#3f4d6b"). If omitted, shows original image colors.
- * - mode: "mask" (best for solid/monochrome icons) or "image" (raw img, no tint)
- */
 export default function Gamepad({
   width = 160,
   height = 100,

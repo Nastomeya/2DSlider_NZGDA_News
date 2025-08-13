@@ -64,6 +64,12 @@ export default function CarouselContainer({
           isMobile={isMobile}
           cardWidth={isMobile ? 300 : 420}
           gap={isMobile ? 35 : 60}
+
+          style={{
+            zIndex: 2, // this is the correct syntax
+            background: "transparent",
+            position: "relative",
+          }}
         />
       </div>
       {/* Dots & arrows (2D versions you already have) */}
@@ -83,8 +89,12 @@ export default function CarouselContainer({
       />
 
       {/* Decorative gamepads (2D version) */}
-      <Gamepad color="gray" width={160} height={160} position={[-60, -20]} rotation={45} />
-      <Gamepad color="#3F4D6B" width={100} height={100} position={[540, -120]} rotation={-26} />
+      <Gamepad color="#3F4D6B" width={360} height={225} position={[60, -520]} rotation={45} />
+      <Gamepad color="gray" width={360} height={360} position={[240, -520]} rotation={-26}
+        style={{
+          zIndex: 0, // this is the correct syntax
+        }}
+      />
     </div>
   );
 }
