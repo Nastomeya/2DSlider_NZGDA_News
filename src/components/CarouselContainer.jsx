@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import CardCarousel from "./CardCarousel";
 import DotCarousel from "./DotCarousel";
 import SliderArrows from "./SliderArrows";
@@ -6,7 +6,7 @@ import CarouselText from "./CarouselText";
 import Gamepad from "./Gamepad";
 import { mod } from "./mod";
 
-const AUTOPLAY_DELAY = 6500; // ms
+const AUTOPLAY_DELAY = 5500; // ms
 const RESUME_DELAY = 1000; // ms
 
 export default function CarouselContainer({
@@ -17,11 +17,16 @@ export default function CarouselContainer({
   const N = datas?.length ?? 0;
   const [currentIndex, setCurrentIndex] = useState(Math.floor(N / 2) || 0);
   const [autoPlayActive, setAutoPlayActive] = useState(isAutoPlaying);
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+  const windowWidthRef = useRef(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  // TIMER REFS (so we can clear safely)
+  const autoplayTimeoutRef = useRef(null);
+  const resumeTimeoutRef = useRef(null);
+
 
   // Track window resize
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
+    const handleResize = () => windowWidthRef.current = window.innerWidth;
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -31,19 +36,55 @@ export default function CarouselContainer({
 
   // Auto-advance
   useEffect(() => {
+    // Clear any previous timer
+    if (autoplayTimeoutRef.current) {
+      clearTimeout(autoplayTimeoutRef.current);
+      autoplayTimeoutRef.current = null;
+    }
+
     if (!autoPlayActive || N === 0) return;
-    const id = setInterval(() => { setCurrentIndex((i) => mod(i + 1, N)); }, AUTOPLAY_DELAY);
-    return () => clearInterval(id);
-  }, [autoPlayActive, N]);
+
+    autoplayTimeoutRef.current = setTimeout(() => {
+      setCurrentIndex((i) => mod(i + 1, N));
+    }, AUTOPLAY_DELAY);
+
+    // Cleanup on deps change/unmount
+    return () => {
+      if (autoplayTimeoutRef.current) {
+        clearTimeout(autoplayTimeoutRef.current);
+        autoplayTimeoutRef.current = null;
+      }
+    };
+  }, [autoPlayActive, N, currentIndex]); // ← currentIndex resets the timer after clicks
 
   // When user clicks card/dot/arrow: set index and pause briefly
   const handleSelectIndex = (idx) => {
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+    if (autoplayTimeoutRef.current) {
+      clearTimeout(autoplayTimeoutRef.current);
+      autoplayTimeoutRef.current = null;
+    }
+
     setCurrentIndex(mod(idx, N));
     setAutoPlayActive(false);
-    const id = setTimeout(() => setAutoPlayActive(true), RESUME_DELAY);
-    // Optional: clean-up if parent unmounts quickly
-    return () => clearTimeout(id);
+
+    // Resume after a short delay; the autoplay effect above
+    // will start a fresh AUTOPLAY_DELAY timer after resume.
+    resumeTimeoutRef.current = setTimeout(() => {
+      setAutoPlayActive(true);
+    }, RESUME_DELAY);
   };
+
+  // Clear timers if the component unmounts
+  useEffect(() => {
+    return () => {
+      if (autoplayTimeoutRef.current) clearTimeout(autoplayTimeoutRef.current);
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    };
+  }, []);
 
   if (N === 0) return null;
 
@@ -58,14 +99,14 @@ export default function CarouselContainer({
 
   const arrowSize = Math.max(Math.min(cardWidth * 0.1, 70), 60);
   const arrowOffsetX = cardWidth + (isMobile ? 50 : 350); // adjust relative to card width
-  const dotOffsetY = 45;
-  const arrowOffsetY = 15;
+  const dotOffsetY = 75;
+  const arrowOffsetY = 45;
 
   return (
     <div style={{ position: "relative", width: "100%" }}>
-      {/* <CarouselText /> */}
-      {/* Cards: pure 2D flat slider w/ looping */}
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", minHeight: "300px" }}>
+        <CarouselText />
+
         <CardCarousel
           datas={datas}
           cardClickedIndex={currentIndex}
@@ -101,7 +142,7 @@ export default function CarouselContainer({
       </div>
       {/* Decorative gamepads (2D version) */}
       <Gamepad color="#3F4D6B" width={0.18} height={0.18} position={[0.75, -950]} rotation={45} />
-      <Gamepad color="#bababaff" width={0.28} height={0.28} position={[0.01, -650]} rotation={-26} />
+      <Gamepad color="#bababaff" width={0.28} height={0.28} position={[0.01, -850]} rotation={-26} />
     </div >
   );
 }

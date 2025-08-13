@@ -14,7 +14,6 @@ export default function CarouselText({
   scale = 120,        // px per "unit" to mirror your Three numbers
   maxWidthUnits = 5,  // matches textConfig.maxWidth
   fontSizeUnits = 0.235,
-  topUnits = 2.55,    // position Y in your original config
   lineHeight = 1.2,
   align = "center",
   titleOverride,      // if provided, skip fetch and use this text
@@ -43,14 +42,13 @@ export default function CarouselText({
 
   const maxWidthPx = maxWidthUnits * scale;
   const fontSizePx = fontSizeUnits * scale;
-  const topPx = topUnits * scale;
 
   return (
     <div
       style={{
         position: "absolute",
         left: "50%",
-        top: topPx,
+        top: 0,
         transform: "translateX(-50%)",
         maxWidth: maxWidthPx,
         width: "100%",

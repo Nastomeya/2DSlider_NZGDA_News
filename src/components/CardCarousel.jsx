@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Card from "./Card";
 import { mod } from "./mod";
 
@@ -45,7 +45,6 @@ export default function CardCarousel({
     if (next !== trackIndex) {
       setWithTransition(false);
       setTrackIndex(next);
-      // trackRef?.current?.offsetHeight;
       requestAnimationFrame(() => setWithTransition(true));
     }
   };
@@ -105,11 +104,11 @@ export default function CardCarousel({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        top: "50px",
         ...style,
       }}
     >
       <div
-        //ref={trackRef}
         onTransitionEnd={handleTransitionEnd}
         style={{
           display: "flex",
