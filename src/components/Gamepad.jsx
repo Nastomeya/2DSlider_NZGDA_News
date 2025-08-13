@@ -42,7 +42,7 @@ export default function Gamepad({
         style={{
           position: "absolute",
           transform: `translate(${x}px, ${y}px) rotate(${rotation}deg)`,
-          transformOrigin: "top left",
+          transformOrigin: "center  center",
           display: "block",
           zIndex: 0,
           ...style,
@@ -69,7 +69,7 @@ export default function Gamepad({
         maskSize: "contain",
         maskPosition: "center",
         transform: `translate(${x}px, ${y}px) rotate(${rotation}deg)`,
-        transformOrigin: "top left",
+        transformOrigin: "center  center",
         zIndex: 0,
         ...style,
       }}
