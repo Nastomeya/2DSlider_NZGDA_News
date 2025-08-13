@@ -17,6 +17,14 @@ export default function CarouselContainer({
   const N = datas?.length ?? 0;
   const [currentIndex, setCurrentIndex] = useState(Math.floor(N / 2) || 0);
   const [autoPlayActive, setAutoPlayActive] = useState(isAutoPlaying);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  // Track window resize
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Keep autoplay flag in sync with prop
   useEffect(() => setAutoPlayActive(isAutoPlaying), [isAutoPlaying]);
@@ -57,7 +65,7 @@ export default function CarouselContainer({
     <div style={{ position: "relative", width: "100%" }}>
       {/* <CarouselText /> */}
       {/* Cards: pure 2D flat slider w/ looping */}
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", minHeight: "300px" }}>
         <CardCarousel
           datas={datas}
           currentIndex={currentIndex}
@@ -69,7 +77,8 @@ export default function CarouselContainer({
           style={{ zIndex: 2, }}
         />
       </div>
-      <div style={{ position: "relative", width: "100%", alignItems: "center", justifyContent: "center", gap: gap }}>
+
+      <div style={{ position: "relative", width: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
         <DotCarousel
           datas={datas}
           cardClickedIndex={currentIndex}

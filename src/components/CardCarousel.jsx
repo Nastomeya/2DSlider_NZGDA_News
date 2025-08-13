@@ -26,27 +26,53 @@ export default function CardCarousel({
 
   useEffect(() => {
     if (typeof currentIndex === "number" && N > 0) {
-      setWithTransition(true);
-      setTrackIndex(START_OFFSET + currentIndex);
+      // Only update if the currentIndex change came from outside (not from our own click)
+      const expectedDataIndex = mod(trackIndex, N);
+      if (currentIndex !== expectedDataIndex) {
+        setWithTransition(true);
+        setTrackIndex(START_OFFSET + currentIndex);
+      }
     }
-  }, [currentIndex, N, START_OFFSET]);
+  }, [currentIndex, N, START_OFFSET, trackIndex]);
 
-  const trackRef = useRef(null);
+
   const handleTransitionEnd = () => {
     if (N === 0) return;
     let next = trackIndex;
     if (trackIndex >= 2 * N) next = trackIndex - N;
-    if (trackIndex < N) next = trackIndex + N;
+    else if (trackIndex < N) next = trackIndex + N;
+
     if (next !== trackIndex) {
       setWithTransition(false);
       setTrackIndex(next);
+      // trackRef?.current?.offsetHeight;
       requestAnimationFrame(() => setWithTransition(true));
     }
   };
 
   const onCardClickInternal = (displayIdx) => {
     if (N === 0) return;
-    onCardClick?.(mod(displayIdx, N));
+    // Find the closest instance of this card to the current position
+    const targetDataIndex = mod(displayIdx, N);
+    const currentCenter = trackIndex;
+
+    // Find which section would give us the shortest distance
+    const candidates = [
+      targetDataIndex,           // First section
+      targetDataIndex + N,       // Second section  
+      targetDataIndex + 2 * N    // Third section
+    ];
+
+    const distances = candidates.map(candidate => Math.abs(candidate - currentCenter));
+    const minDistanceIndex = distances.indexOf(Math.min(...distances));
+    const targetTrackIndex = candidates[minDistanceIndex];
+
+    // Set the track index directly for smooth animation
+    setWithTransition(true);
+    setTrackIndex(targetTrackIndex);
+
+    // Notify parent of the data index change
+    onCardClick?.(targetDataIndex);
   };
 
   if (N === 0) {
@@ -62,11 +88,10 @@ export default function CardCarousel({
     );
   }
 
-  const visible = visibleCount;
-  const viewportWidth = visible * (cardWidth + gap) - gap;
-
+  const viewportWidth = visibleCount * (cardWidth + gap) - gap;
   const trackWidth = looped.length * (cardWidth + gap) - gap;
-  const offsetX = viewportWidth / 2 - cardWidth / 2 - trackIndex * (cardWidth + gap);
+  const cardLeft = trackIndex * (cardWidth + gap);
+  const offsetX = (trackWidth / 2) - (cardLeft + cardWidth / 2);
 
   return (
     <div
@@ -76,13 +101,15 @@ export default function CardCarousel({
         width: `${viewportWidth}px`,
         height: `${finalCardHeight}px`,
         margin: "0 auto",
-        maxWidth: "100%", // Ensure it doesn't exceed container
         background: "transparent",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         ...style,
       }}
     >
       <div
-        ref={trackRef}
+        //ref={trackRef}
         onTransitionEnd={handleTransitionEnd}
         style={{
           display: "flex",
@@ -93,6 +120,7 @@ export default function CardCarousel({
           transition: withTransition ? "transform 360ms cubic-bezier(.2,.8,.2,1)" : "none",
           willChange: "transform",
           alignItems: "stretch",
+          position: "relative",
         }}
       >
         {looped.map((card, i) => (
@@ -103,6 +131,7 @@ export default function CardCarousel({
               height: "100%",
               flex: "0 0 auto",
               position: "relative",
+              cursor: "pointer", // Add visual feedback
             }}
             onClick={() => onCardClickInternal(i)}
           >
