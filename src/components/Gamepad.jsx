@@ -1,46 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import gamepadImage from "../assets/images/Gamepad-Vector.png";
 
 export default function Gamepad({
-  width = 160,
-  height = 100,
-  position = [0, 0],
-  rotation = 0,          // rotateZ in degrees for 2D
-  color,                 // e.g. "#3f4d6b" to tint
-  mode = "mask",         // "mask" | "image"
+  width = 0.2,        // fraction of viewport width
+  height = 0.2,       // fraction of viewport width (square)
+  position = [0, 0],  // fractions of viewport [xFraction, yFraction]
+  rotation = 0,
+  color,              // e.g. "#3f4d6b"
+  mode = "mask",
+  verticalMode = "pixel", // "pixel" | "fraction"
+  containerHeight = 0,    // required if verticalMode="fraction"
   style = {},
 }) {
-  const [x, y] = position;
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
+  // Track viewport resize
+  useEffect(() => {
+    const handleResize = () => setViewportWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Convert fractions to pixels
+  const pxWidth = width * viewportWidth;
+  const pxHeight = height * viewportWidth; // keep square based on width
+  const x = position[0] * viewportWidth;
+  const y =
+    verticalMode === "pixel"
+      ? position[1]
+      : containerHeight
+        ? position[1] * containerHeight
+        : position[1]; // fallback to raw value if containerHeight missing
 
   if (!color || mode === "image") {
-    // Plain image mode (no tint)
     return (
       <img
         src={gamepadImage}
         alt="Gamepad"
-        width={width}
-        height={height}
+        width={pxWidth}
+        height={pxHeight}
         style={{
           position: "absolute",
           transform: `translate(${x}px, ${y}px) rotate(${rotation}deg)`,
           transformOrigin: "top left",
           display: "block",
+          zIndex: 0,
           ...style,
         }}
       />
     );
   }
 
-  // Tinted mode using CSS mask: the PNG’s alpha becomes the mask, and we fill with `color`
+  // Tinted mode using CSS mask
   return (
     <div
       aria-label="Gamepad"
       style={{
         position: "absolute",
-        transform: `translate(${x}px, ${y}px) rotate(${rotation}deg)`,
-        transformOrigin: "top left",
-        width,
-        height,
+        width: pxWidth,
+        height: pxHeight,
         backgroundColor: color,
         WebkitMaskImage: `url(${gamepadImage})`,
         WebkitMaskRepeat: "no-repeat",
@@ -50,6 +68,9 @@ export default function Gamepad({
         maskRepeat: "no-repeat",
         maskSize: "contain",
         maskPosition: "center",
+        transform: `translate(${x}px, ${y}px) rotate(${rotation}deg)`,
+        transformOrigin: "top left",
+        zIndex: 0,
         ...style,
       }}
     />

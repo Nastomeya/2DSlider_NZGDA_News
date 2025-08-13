@@ -91,9 +91,8 @@ export default function CarouselContainer({
         />
       </div>
       {/* Decorative gamepads (2D version) */}
-      <Gamepad color="#3F4D6B" width={455} height={455} position={[2560, -930]} rotation={45} style={{ zIndex: 0, position: "relative" }} />
-      <Gamepad color="gray" width={800} height={800} position={[150, -1090]} rotation={-26} style={{ zIndex: 0, position: "relative" }}
-      />
+      <Gamepad color="#3F4D6B" width={0.18} height={0.18} position={[0.83, -950]} rotation={45} />
+      <Gamepad color="#bababaff" width={0.28} height={0.28} position={[0.01, -650]} rotation={-26} />
     </div >
   );
 }
