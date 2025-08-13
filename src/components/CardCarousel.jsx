@@ -4,7 +4,7 @@ import { mod } from "./mod";
 
 export default function CardCarousel({
   datas = [],
-  currentIndex,
+  cardClickedIndex,
   onCardClick,
   isMobile = false,
   cardWidth = 286,
@@ -21,19 +21,19 @@ export default function CardCarousel({
 
   const looped = useMemo(() => [...datas, ...datas, ...datas], [datas]);
 
-  const [trackIndex, setTrackIndex] = useState(START_OFFSET + (currentIndex ?? 0));
+  const [trackIndex, setTrackIndex] = useState(START_OFFSET + (cardClickedIndex ?? 0));
   const [withTransition, setWithTransition] = useState(true);
 
   useEffect(() => {
-    if (typeof currentIndex === "number" && N > 0) {
+    if (typeof cardClickedIndex === "number" && N > 0) {
       // Only update if the currentIndex change came from outside (not from our own click)
       const expectedDataIndex = mod(trackIndex, N);
-      if (currentIndex !== expectedDataIndex) {
+      if (cardClickedIndex !== expectedDataIndex) {
         setWithTransition(true);
-        setTrackIndex(START_OFFSET + currentIndex);
+        setTrackIndex(START_OFFSET + cardClickedIndex);
       }
     }
-  }, [currentIndex, N, START_OFFSET, trackIndex]);
+  }, [cardClickedIndex, N, START_OFFSET, trackIndex]);
 
 
   const handleTransitionEnd = () => {
@@ -131,9 +131,7 @@ export default function CardCarousel({
               height: "100%",
               flex: "0 0 auto",
               position: "relative",
-              cursor: "pointer", // Add visual feedback
             }}
-            onClick={() => onCardClickInternal(i)}
           >
             <Card
               website={card.website}
@@ -141,6 +139,8 @@ export default function CardCarousel({
               title={card.title}
               date={card.date}
               contentText={card.contentText}
+              hasBeenClicked={card.id === cardClickedIndex}
+              onClick={() => onCardClickInternal(i)}
               isMobile={isMobile}
             />
           </div>

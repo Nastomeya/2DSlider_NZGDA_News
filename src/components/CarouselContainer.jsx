@@ -68,7 +68,7 @@ export default function CarouselContainer({
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", minHeight: "300px" }}>
         <CardCarousel
           datas={datas}
-          currentIndex={currentIndex}
+          cardClickedIndex={currentIndex}
           onCardClick={handleSelectIndex}
           visibleCount={visibleCount} // Reduced visible count for better fit
           isMobile={isMobile}
@@ -100,7 +100,7 @@ export default function CarouselContainer({
         />
       </div>
       {/* Decorative gamepads (2D version) */}
-      <Gamepad color="#3F4D6B" width={0.18} height={0.18} position={[0.83, -950]} rotation={45} />
+      <Gamepad color="#3F4D6B" width={0.18} height={0.18} position={[0.75, -950]} rotation={45} />
       <Gamepad color="#bababaff" width={0.28} height={0.28} position={[0.01, -650]} rotation={-26} />
     </div >
   );

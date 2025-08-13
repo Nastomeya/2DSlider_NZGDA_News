@@ -5,7 +5,9 @@ export default function CardBoard({
   h = 3.4,        // height in your original units
   r = 0.2,        // corner radius in your original units
   scale = 180,    // px per unit (change to make it bigger/smaller)
-  background = '#11234A',
+  
+  hasBeenClicked,
+  background = hasBeenClicked?'#616d86ff':'#11234A',
   border = 'rgba(0,0,0,0.08)',
   shadow = '0 8px 24px rgba(0,0,0,0.12)',
   style = {},
@@ -23,7 +25,6 @@ export default function CardBoard({
         borderRadius: radiusPx,          // 0.2 units -> px
         background,
         border: `1px solid ${border}`,
-        // boxShadow: shadow,
         overflow: 'hidden',
         ...style,
       }}

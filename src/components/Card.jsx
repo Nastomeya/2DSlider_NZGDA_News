@@ -17,6 +17,7 @@ export default function Card({
   contentText,
   position = [0, 0], // Only X, Y for 2D positioning
   onClick,
+  hasBeenClicked,
   isMobile,
 }) {
   return (
@@ -24,15 +25,16 @@ export default function Card({
       style={{
         position: "relative",
         transform: `translate(${position[0]}px, ${position[1]}px)`,
-        cursor: onClick ? "pointer" : "default",
+        cursor: !hasBeenClicked ? "pointer" : "default",
       }}
       onClick={onClick}
     >
-      <CardBoard />
-      <CardTitleText title={truncateWithEllipsis(title, 45)} />
-      <CardDateText date={date} />
+      <CardBoard hasBeenClicked={hasBeenClicked} />
+      <CardTitleText hasBeenClicked={hasBeenClicked} title={truncateWithEllipsis(title, 45)} />
+      <CardDateText hasBeenClicked={hasBeenClicked} date={date} />
       <CardContentText
         content={truncateWithEllipsis(contentText, isMobile ? 183 : 312)}
+        hasBeenClicked={hasBeenClicked}
         isMobile={isMobile}
       />
       <CardImage src={image} alt={title} website={website} />

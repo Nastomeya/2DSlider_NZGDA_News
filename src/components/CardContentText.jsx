@@ -3,7 +3,8 @@ import React from "react";
 export default function CardContentText({
   content,
   isMobile = false,
-  color = "#9CA4B2",
+  hasBeenClicked,
+  color = hasBeenClicked ? "#ffffffff" : "#9CA4B2",
   align = "left",
   position = { top: 360, left: 30 },
   fontWeight = 100,

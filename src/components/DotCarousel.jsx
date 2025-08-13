@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
-import Dot from "./Dot"; // the 2D Dot that takes { index, currentIndex, getButtonsStyle, ... }
+import Dot from "./Dot";
 import { useButtonsPosition } from "./useButtonsPosition";
 
 export default function DotCarousel({
   datas,
   onDotClick,
-  cardClickedIndex: currentIndex,
+  cardClickedIndex,
   offsetY = 20,  // px from bottom of the container
   space,
   dotSize,
@@ -43,7 +43,7 @@ export default function DotCarousel({
         <Dot
           key={dot.id ?? i}
           id={i}                               // position is based on index
-          currentIndex={currentIndex}
+          currentIndex={cardClickedIndex}
           style={getButtonsStyle(i, dotSize)}      // Pass computed position styles here
           onClick={() => onDotClick?.(dot.id ?? i)}
         />

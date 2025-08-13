@@ -2,7 +2,8 @@ import React from "react";
 
 export default function CardTitleText({
   title,
-  color = "white",
+  hasBeenClicked,
+  color = hasBeenClicked? "#e97d02ff":"white",
   align = "left",
   fontSize = 38,
   position = { top: 250, left: 20 },
