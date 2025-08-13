@@ -12,8 +12,9 @@ export default function Gamepad({
   containerHeight = 0,    // required if verticalMode="fraction"
   style = {},
 }) {
-  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-
+  const [viewportWidth, setViewportWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1200
+  );
   // Track viewport resize
   useEffect(() => {
     const handleResize = () => setViewportWidth(window.innerWidth);
@@ -25,40 +26,45 @@ export default function Gamepad({
   const pxWidth = width * viewportWidth;
   const pxHeight = height * viewportWidth; // keep square based on width
   const x = position[0] * viewportWidth;
-  const y =
-    verticalMode === "pixel"
-      ? position[1]
-      : containerHeight
-        ? position[1] * containerHeight
-        : position[1]; // fallback to raw value if containerHeight missing
+  const y = verticalMode === "pixel"
+    ? position[1]
+    : (containerHeight ? position[1] * containerHeight : position[1]); // fallback to raw value if containerHeight missing
+
+
+  const tx = x - pxWidth / 2;
+  const ty = y - pxHeight / 2;
+
+  const baseStyle = {
+    position: "absolute",
+    width: pxWidth,
+    height: pxHeight,
+    left: Math.round(x),
+    top: Math.round(y),
+    // Shift origin to the element center, then rotate
+    transform: `translate(${Math.round(tx)}px, ${Math.round(ty)}px) rotate(${rotation}deg)`,
+    transformOrigin: "center center",
+    zIndex: 0,
+    ...style,
+  };
+
 
   if (!color || mode === "image") {
     return (
       <img
         src={gamepadImage}
         alt="Gamepad"
-        width={pxWidth}
-        height={pxHeight}
-        style={{
-          position: "absolute",
-          transform: `translate(${x}px, ${y}px) rotate(${rotation}deg)`,
-          transformOrigin: "center  center",
-          display: "block",
-          zIndex: 0,
-          ...style,
-        }}
+        style={baseStyle}
       />
     );
   }
+
 
   // Tinted mode using CSS mask
   return (
     <div
       aria-label="Gamepad"
       style={{
-        position: "absolute",
-        width: pxWidth,
-        height: pxHeight,
+        ...baseStyle,
         backgroundColor: color,
         WebkitMaskImage: `url(${gamepadImage})`,
         WebkitMaskRepeat: "no-repeat",
@@ -68,10 +74,6 @@ export default function Gamepad({
         maskRepeat: "no-repeat",
         maskSize: "contain",
         maskPosition: "center",
-        transform: `translate(${x}px, ${y}px) rotate(${rotation}deg)`,
-        transformOrigin: "center  center",
-        zIndex: 0,
-        ...style,
       }}
     />
   );

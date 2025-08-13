@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
-
-/**
- * Pure 2D CarouselText
- * - Fetches { "title": "..." } from /api-data/siteInfo.json (same as your original)
- * - Uses unit-to-px mapping via `scale` so values match your old Three units:
- *    maxWidth = 5 * scale, fontSize = 0.235 * scale, top offset = 2.55 * scale
- * - Absolutely centers text at the top of its relatively positioned parent
- */
 export default function CarouselText({
   // optional overrides if you ever need them
   jsonUrl = "/api-data/siteInfo.json",
   color = "#11234A",
-  scale = 120,        // px per "unit" to mirror your Three numbers
+  scale = 150,        // px per "unit" to mirror your Three numbers
   maxWidthUnits = 5,  // matches textConfig.maxWidth
   fontSizeUnits = 0.235,
   lineHeight = 1.2,
@@ -57,7 +49,7 @@ export default function CarouselText({
         lineHeight,
         // Use your bold Montserrat if you load it in CSS; falls back gracefully
         fontFamily: "'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
-        fontWeight: 700,
+        fontWeight: 800,
         fontSize: fontSizePx,
         // Nice crisp rendering
         textRendering: "optimizeLegibility",

@@ -7,7 +7,7 @@ export default function CardBoard({
   scale = 180,    // px per unit (change to make it bigger/smaller)
 
   hasBeenClicked,
-  background = hasBeenClicked ? 'rgba(97,109,134,1)' : 'rgba(17,35,74,0.8)',
+  background = hasBeenClicked ? 'rgba(97,109,134,0.8)' : 'rgba(17,35,74,0.8)',
   border = 'rgba(0,0,0,0.08)',
   shadow = '0 8px 24px rgba(0,0,0,0.12)',
   style = {},
