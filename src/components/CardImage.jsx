@@ -3,13 +3,13 @@ import React from "react";
 export default function CardImage({
   src,
   alt = "",
-  width = 220,         // px
-  height = 123,        // px
+  width = 400,         // px
+  height = 224.7,        // px
   radius = 10,         // px
   opacity = 1,
   website,
   style = {},
-  position = { top: 30, left: 0 }, // position offset in px
+  position = { top: 15, left: 15 }, // position offset in px
 }) {
   const handleClick = () => {
     if (website) {

@@ -5,19 +5,22 @@ export default function CardDateText({
   color = "white",
   align = "right",
   fontSize = 14,
-  distanceFromCard = 8, // px offset from top/right edges
+  position = { top: 340, right: 15 },
+  fontWeight = 300,
+  lineHeight = 1.2,
   style = {},
 }) {
   return (
     <div
       style={{
         position: "absolute",
-        top: distanceFromCard,
-        right: distanceFromCard,
+        top: position.top,//distanceFromCard,
+        right: position.right,//distanceFromCard,
         textAlign: align,
         fontSize,
         fontFamily: "'Montserrat', sans-serif",
-        lineHeight: 1.22,
+        fontWeight: fontWeight,
+        lineHeight: lineHeight,
         color,
         ...style,
       }}
