@@ -2,16 +2,13 @@ import React, { useRef } from "react";
 import Dot from "./Dot"; // the 2D Dot that takes { index, currentIndex, getButtonsStyle, ... }
 import { useButtonsPosition } from "./useButtonsPosition";
 
-const DOTS = {
-  dotSize: 12,   // px diameter of each dot
-  space: 18,     // px center-to-center gap between dots
-};
-
 export default function DotCarousel({
   datas,
   onDotClick,
-  cardClickedIndex,
+  cardClickedIndex: currentIndex,
   offsetY = 20,  // px from bottom of the container
+  space,
+  dotSize,
   style = {},
 }) {
   const totalCount = Array.isArray(datas) ? datas.length : 0;
@@ -21,7 +18,7 @@ export default function DotCarousel({
   const { getButtonsStyle } = useButtonsPosition({
     containerRef,
     totalCount,
-    space: DOTS.space,
+    space,
     offsetX: 0,
     offsetY, // distance from bottom edge
   });
@@ -35,18 +32,19 @@ export default function DotCarousel({
       ref={containerRef}
       style={{
         position: "relative",
-        height: Math.max(DOTS.dotSize + offsetY * 2, 48), // enough height for dots
-        display: "block",
+        height: Math.max(dotSize + offsetY * 2, 48), // enough height for dots
+        width: "100%",         // Make container width fluid
+        maxWidth: 400,         // Or set max width as needed
+        margin: "0 auto",
         ...style,
       }}
     >
       {datas.map((dot, i) => (
         <Dot
           key={dot.id ?? i}
-          index={i}                               // position is based on index
-          currentIndex={cardClickedIndex}
-          getButtonsStyle={getButtonsStyle}
-          dotSize={DOTS.dotSize}
+          id={i}                               // position is based on index
+          currentIndex={currentIndex}
+          style={getButtonsStyle(i, dotSize)}      // Pass computed position styles here
           onClick={() => onDotClick?.(dot.id ?? i)}
         />
       ))}

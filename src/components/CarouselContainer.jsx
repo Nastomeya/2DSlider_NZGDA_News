@@ -48,13 +48,12 @@ export default function CarouselContainer({
 
       {/* Cards: pure 2D flat slider w/ looping */}
       <div style={{
-        marginTop: 24,
-        marginBottom: 16,
+        marginTop: 180,
+        marginBottom: 20,
         display: "flex",
         justifyContent: "center", // Center the carousel
         alignItems: "center",
         width: "100%",
-        overflow: "visible", // Changed to visible for debugging
       }}>
         <CardCarousel
           datas={datas}
@@ -64,37 +63,37 @@ export default function CarouselContainer({
           isMobile={isMobile}
           cardWidth={isMobile ? 300 : 420}
           gap={isMobile ? 35 : 60}
-
-          style={{
-            zIndex: 2, // this is the correct syntax
-            background: "transparent",
-            position: "relative",
-          }}
+          style={{ zIndex: 2, }}
         />
       </div>
-      {/* Dots & arrows (2D versions you already have) */}
-      <DotCarousel
-        datas={datas}
-        cardClickedIndex={currentIndex}
-        onDotClick={handleSelectIndex}
-        offsetY={20}        // px from bottom of the dots container
-      />
+      <div style={{
+        display: "flex",
+        justifyContent: "center", // Center the carousel
+        alignItems: "center",
+        width: "100%",
+      }}>
+        {/* Dots & arrows (2D versions you already have) */}
+        <DotCarousel
+          datas={datas}
+          cardClickedIndex={currentIndex}
+          onDotClick={handleSelectIndex}
+          offsetY={15}        // px from bottom of the dots container
+          space={28}    // Try increasing this to see spacing change
+          dotSize={17}
+        />
 
-      <SliderArrows
-        currentIndex={currentIndex}
-        onBtnClick={handleSelectIndex}
-        totalSlides={N}
-        offsetX={isMobile ? 120 : 0} // push the pair sideways if you want
-        offsetY={24}
-      />
-
+        <SliderArrows
+          currentIndex={currentIndex}
+          onBtnClick={handleSelectIndex}
+          totalSlides={N}
+          offsetX={isMobile ? 120 : 0} // push the pair sideways if you want
+          offsetY={24}
+        />
+      </div>
       {/* Decorative gamepads (2D version) */}
-      <Gamepad color="#3F4D6B" width={360} height={225} position={[60, -520]} rotation={45} />
-      <Gamepad color="gray" width={360} height={360} position={[240, -520]} rotation={-26}
-        style={{
-          zIndex: 0, // this is the correct syntax
-        }}
+      <Gamepad color="#3F4D6B" width={455} height={455} position={[2560, -1130]} rotation={45} style={{ zIndex: 0, position: "relative" }} />
+      <Gamepad color="gray" width={800} height={800} position={[150, -1300]} rotation={-26} style={{ zIndex: 0, position: "relative" }}
       />
-    </div>
+    </div >
   );
 }

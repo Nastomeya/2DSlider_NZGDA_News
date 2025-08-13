@@ -1,11 +1,6 @@
-import {  useLayoutEffect, useRef, useState } from "react";
-export function useButtonsPosition({
-  containerRef,
-  totalCount,
-  space = 24,
-  offsetX = 0,
-  offsetY = 16,
-}) {
+import { useLayoutEffect, useRef, useState } from "react";
+export function useButtonsPosition({ containerRef, totalCount, space = 24, offsetX = 0, offsetY = 16, }) {
+
   const [rect, setRect] = useState({ width: 0, height: 0 });
 
   // Measure container size
@@ -48,12 +43,10 @@ export function useButtonsPosition({
   const getButtonsStyle = (index, dotSize = 12) => {
     const [x, y] = getButtonsXY(index);
     // center the dot by subtracting half its size
-    const left = x - dotSize / 2;
-    const top = y - dotSize / 2;
     return {
       position: "absolute",
-      left: `${left}px`,
-      top: `${top}px`,
+      left: `${x - dotSize / 2}px`,
+      top: `${y - dotSize / 2}px`,
       width: `${dotSize}px`,
       height: `${dotSize}px`,
     };
