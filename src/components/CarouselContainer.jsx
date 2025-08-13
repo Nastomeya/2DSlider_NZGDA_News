@@ -24,9 +24,7 @@ export default function CarouselContainer({
   // Auto-advance
   useEffect(() => {
     if (!autoPlayActive || N === 0) return;
-    const id = setInterval(() => {
-      setCurrentIndex((i) => mod(i + 1, N));
-    }, AUTOPLAY_DELAY);
+    const id = setInterval(() => { setCurrentIndex((i) => mod(i + 1, N)); }, AUTOPLAY_DELAY);
     return () => clearInterval(id);
   }, [autoPlayActive, N]);
 
@@ -41,58 +39,60 @@ export default function CarouselContainer({
 
   if (N === 0) return null;
 
-  return (
-    <div style={{ position: "relative", width: "100%", margin: "0 auto", overflow: "hidden" }}>
-      {/* Title above */}
-      <CarouselText />
+  // --- Responsive sizes ---
+  const containerWidth = Math.min(window.innerWidth * 0.95, 1200); // max width 1200px
+  const cardWidth = isMobile ? containerWidth * 0.25 : containerWidth * 0.18; // scale
+  const gap = cardWidth * 0.25;  // 5% of card width
+  const visibleCount = isMobile ? 3 : 5;
 
+  const dotSize = Math.max(Math.min(cardWidth * 0.04, 30), 20); // min 8px, max 20px
+  const dotSpacing = dotSize * 2;
+
+  const arrowSize = Math.max(Math.min(cardWidth * 0.1, 70), 60);
+  const arrowOffsetX = cardWidth + (isMobile ? 50 : 350); // adjust relative to card width
+  const dotOffsetY = 45;
+  const arrowOffsetY = 15;
+
+  return (
+    <div style={{ position: "relative", width: "100%" }}>
+      {/* <CarouselText /> */}
       {/* Cards: pure 2D flat slider w/ looping */}
-      <div style={{
-        marginTop: 180,
-        marginBottom: 20,
-        display: "flex",
-        justifyContent: "center", // Center the carousel
-        alignItems: "center",
-        width: "100%",
-      }}>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
         <CardCarousel
           datas={datas}
           currentIndex={currentIndex}
           onCardClick={handleSelectIndex}
-          visibleCount={isMobile ? 3 : 5} // Reduced visible count for better fit
+          visibleCount={visibleCount} // Reduced visible count for better fit
           isMobile={isMobile}
           cardWidth={isMobile ? 300 : 420}
-          gap={isMobile ? 35 : 60}
+          gap={gap}
           style={{ zIndex: 2, }}
         />
       </div>
-      <div style={{
-        display: "flex",
-        justifyContent: "center", // Center the carousel
-        alignItems: "center",
-        width: "100%",
-      }}>
-        {/* Dots & arrows (2D versions you already have) */}
+      <div style={{ position: "relative", width: "100%", alignItems: "center", justifyContent: "center", gap: gap }}>
         <DotCarousel
           datas={datas}
           cardClickedIndex={currentIndex}
           onDotClick={handleSelectIndex}
-          offsetY={15}        // px from bottom of the dots container
-          space={28}    // Try increasing this to see spacing change
-          dotSize={17}
+          offsetY={dotOffsetY}        // px from bottom of the dots container
+          space={dotSpacing}    // Try increasing this to see spacing change
+          dotSize={dotSize}
+          style={{ zIndex: 1 }}
         />
 
         <SliderArrows
           currentIndex={currentIndex}
           onBtnClick={handleSelectIndex}
           totalSlides={N}
-          offsetX={isMobile ? 120 : 0} // push the pair sideways if you want
-          offsetY={24}
+          offsetX={arrowOffsetX} // push the pair sideways if you want
+          offsetY={arrowOffsetY}
+          size={arrowSize}
+          style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", zIndex: 1 }}
         />
       </div>
       {/* Decorative gamepads (2D version) */}
-      <Gamepad color="#3F4D6B" width={455} height={455} position={[2560, -1130]} rotation={45} style={{ zIndex: 0, position: "relative" }} />
-      <Gamepad color="gray" width={800} height={800} position={[150, -1300]} rotation={-26} style={{ zIndex: 0, position: "relative" }}
+      <Gamepad color="#3F4D6B" width={455} height={455} position={[2560, -930]} rotation={45} style={{ zIndex: 0, position: "relative" }} />
+      <Gamepad color="gray" width={800} height={800} position={[150, -1090]} rotation={-26} style={{ zIndex: 0, position: "relative" }}
       />
     </div >
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const hoverStrokeColor = "#9ca4b2"; // on hover
+const hoverStrokeColor = "#485873ff"; // on hover
 const staticColor = "#bcbcbcff";   // default
 const displayColor = "#11234A"; // active/current
 
