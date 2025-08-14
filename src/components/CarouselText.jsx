@@ -3,7 +3,8 @@ export default function CarouselText({
   // optional overrides if you ever need them
   jsonUrl = "/api-data/siteInfo.json",
   color = "#11234A",
-  scale = 150,        // px per "unit" to mirror your Three numbers
+  isMobile,
+  scale = isMobile ? 100 : 150,        // px per "unit" to mirror your Three numbers
   maxWidthUnits = 5,  // matches textConfig.maxWidth
   fontSizeUnits = 0.235,
   lineHeight = 1.2,
@@ -49,7 +50,7 @@ export default function CarouselText({
         lineHeight,
         // Use your bold Montserrat if you load it in CSS; falls back gracefully
         fontFamily: "'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
-        fontWeight: 800,
+        fontWeight: "bold",
         fontSize: fontSizePx,
         // Nice crisp rendering
         textRendering: "optimizeLegibility",

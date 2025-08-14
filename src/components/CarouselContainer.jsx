@@ -82,7 +82,7 @@ export default function CarouselContainer({
   return (
     <div style={{ position: "relative", width: "100%", overflow: "hidden" }}>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", minHeight: "300px" }}>
-        {/* <CarouselText /> */}
+        <CarouselText isMobile={isMobile} />
 
         <CardCarousel
           datas={datas}
