@@ -11,7 +11,7 @@ export default function DotCarousel({
 }) {
 
   const totalCount = Array.isArray(datas) ? datas.length : 0;
-  const dotSize = isMobile ? 17 : 23;
+  const dotSize = isMobile ? 13 : 17;
   const space = isMobile ? 30 : dotSize * 2;
   const offsetY = isMobile ? 35 : 40;
   const top = isMobile ? 20 : 25;
