@@ -2,13 +2,12 @@ import React from "react";
 
 export default function CardTitleText({
   title,
-  hasBeenClicked,
-  color = hasBeenClicked? "#e97d02ff":"white",
+  color,
   align = "left",
-  fontSize = 38,
-  position = { top: 250, left: 20 },
-  fontWeight = 300,
-  lineHeight = 1.25,
+  fontSize = "clamp(1.5rem, 8cqw, 2.3rem)", // Responsive font size based on container width
+  position = { top: "41%", left: "5%" }, // Use percentages instead of fixed pixels
+  lineHeight = 1.1,
+  maxWidth = "90%", // Responsive max width (100% - left position - right margin)
   style = {},
 }) {
   return (
@@ -20,10 +19,13 @@ export default function CardTitleText({
         textAlign: align,
         fontSize,
         fontFamily: "'Bebas Neue', sans-serif",
-        fontWeight: fontWeight,
         lineHeight: lineHeight,
         color,
-        maxWidth: "90%", // roughly like your maxWidth: 2.1
+        maxWidth,
+        // Additional responsive properties
+        width: "auto",
+        wordWrap: "break-word",
+        overflow: "hidden",
         ...style,
       }}
     >

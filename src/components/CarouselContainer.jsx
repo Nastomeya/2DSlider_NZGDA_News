@@ -80,23 +80,30 @@ export default function CarouselContainer({
   if (N === 0) return null;
 
   // --- Responsive sizes ---
-  const containerWidth = Math.min(
-    typeof window !== 'undefined' ? Math.min(window.innerWidth * 0.95, 1200) : 1200,
-    1200
-  );
-  const cardWidth = containerWidth * (isMobile ? 0.7 : 0.18); // scale
-  const gap = cardWidth * 0.25;  // 5% of card width
+  // const containerWidth = Math.min(
+  //   typeof window !== 'undefined' ? Math.min(window.innerWidth * 0.95, 1200) : 1200,
+  //   1200
+  // );
+  // const cardWidth = containerWidth * (isMobile ? 0.7 : 0.18); // scale
+  // const gap = cardWidth * 0.25;  // 5% of card width
 
-  const dotSize = Math.max(Math.min(cardWidth * 0.04, 30), 20); // min 8px, max 20px
+  // const dotSize = Math.max(Math.min(cardWidth * 0.04, 30), 20); // min 8px, max 20px
+  // const dotSpacing = dotSize * 2;
+
+  // const arrowSize = Math.max(Math.min(cardWidth * 0.1, 70), 60);
+  // const arrowOffsetX = cardWidth + (isMobile ? 50 : 350); // adjust relative to card width
+  // const dotOffsetY = 75;
+  // const arrowOffsetY = 45;
+
+  const dotSize = isMobile ? 20 : 30;
   const dotSpacing = dotSize * 2;
-
-  const arrowSize = Math.max(Math.min(cardWidth * 0.1, 70), 60);
-  const arrowOffsetX = cardWidth + (isMobile ? 50 : 350); // adjust relative to card width
+  const arrowSize = isMobile ? 60 : 70;
+  const arrowOffsetX = isMobile ? 50 : 350;
   const dotOffsetY = 75;
   const arrowOffsetY = 45;
 
   return (
-    <div style={{ position: "relative", width: "100%" }}>
+    <div style={{ position: "relative", width: "100%", overflow: "hidden" }}>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", minHeight: "300px" }}>
         {/* <CarouselText /> */}
 
@@ -105,8 +112,6 @@ export default function CarouselContainer({
           cardClickedIndex={currentIndex}
           onCardClick={handleSelectIndex}
           isMobile={isMobile}
-          cardWidth={isMobile ? 300 : 420}
-          gap={gap}
           style={{ zIndex: 2, }}
         />
       </div>
@@ -133,8 +138,8 @@ export default function CarouselContainer({
         />
       </div>
       {/* Decorative gamepads (2D version) */}
-      <Gamepad color="#3F4D6B" width={0.2} height={0.2} position={[0.4, 100]} rotation={45} />
-      <Gamepad color="#bababaff" width={0.28} height={0.28} position={[0.13, 120]} rotation={-26} />
+      <Gamepad color="#3F4D6B" width={0.2} height={0.2} position={[0.3, 100]} rotation={45} />
+      <Gamepad color="#bababaff" width={0.28} height={0.28} position={[0.1, 120]} rotation={-26} />
     </div >
   );
 }

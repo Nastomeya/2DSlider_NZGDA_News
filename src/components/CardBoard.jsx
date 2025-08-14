@@ -1,31 +1,33 @@
 import React from 'react';
 
 export default function CardBoard({
-  w = 2.386,      // width in your original units
-  h = 3.4,        // height in your original units
-  r = 0.15,        // corner radius in your original units
-  scale = 180,    // px per unit (change to make it bigger/smaller)
+  w = 2.386,      
+  h = 3.4,        
+  r = 0.15,        
+  scale = 180,    
+  maxWidth = '100%', // Maximum width constraint
 
   hasBeenClicked,
   background = hasBeenClicked ? 'rgba(97,109,134,0.8)' : 'rgba(17,35,74,0.8)',
   border = 'rgba(0,0,0,0.08)',
-  shadow = '0 8px 24px rgba(0,0,0,0.12)',
   style = {},
   ...rest
 }) {
-  const widthPx = w * scale;
-  const radiusPx = r * scale;
+  const radiusPercent = (r / w) * 100; // Convert radius to percentage of width
 
   return (
     <div
       {...rest}
       style={{
-        width: widthPx,                  // set width, height follows from aspect-ratio
-        aspectRatio: `${w} / ${h}`,      // keep exact proportion 2.386 : 3.4
-        borderRadius: radiusPx,          // 0.2 units -> px
+        width: '100%',
+        maxWidth: maxWidth,              // Constraint from parent
+        aspectRatio: `${w} / ${h}`,      
+        borderRadius: `${radiusPercent}%`, // Responsive radius
         background,
         border: `1px solid ${border}`,
         overflow: 'hidden',
+        // Use min() for responsive sizing
+        fontSize: 'clamp(0.8rem, 2vw, 1.2rem)', // Example: text scales too
         ...style,
       }}
     />

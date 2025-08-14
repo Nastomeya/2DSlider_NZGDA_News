@@ -2,10 +2,10 @@ import React from "react";
 
 export default function CardDateText({
   date,
-  color = "white",
+  color,
   align = "right",
-  fontSize = 14,
-  position = { top: 340, right: 15 },
+  fontSize = "clamp(0.8rem, 3cqw, 1rem)", // Responsive font size based on container width
+  position = { top: "58%", right: "4%" }, // Use percentages instead of fixed pixels
   fontWeight = 300,
   lineHeight = 1.2,
   style = {},
@@ -14,14 +14,17 @@ export default function CardDateText({
     <div
       style={{
         position: "absolute",
-        top: position.top,//distanceFromCard,
-        right: position.right,//distanceFromCard,
+        top: position.top,
+        right: position.right,
         textAlign: align,
         fontSize,
         fontFamily: "'Montserrat', sans-serif",
         fontWeight: fontWeight,
         lineHeight: lineHeight,
         color,
+        // Additional responsive properties
+        whiteSpace: "nowrap", // Keep date on single line
+        transform: "translateY(-100%)", // Offset to position above bottom edge
         ...style,
       }}
     >

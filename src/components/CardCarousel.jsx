@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import Card from "./Card";
 import { mod } from "./mod";
 
@@ -7,14 +7,16 @@ export default function CardCarousel({
   cardClickedIndex,
   onCardClick,
   isMobile = false,
-  cardWidth = 286,
-  gap = 16,
   style = {},
 }) {
   const N = datas.length;
+  const viewportRef = useRef(null); // Add ref to check actual size
 
   const START_OFFSET = N;
-  const CARD_ASPECT = 3.4 / 2.325;             // ≈ 1.425
+  const CARD_ASPECT = isMobile ? 1.438 : 1.463;             // ≈ 1.425
+  const gap = 60;
+  const cardWidth = isMobile ? 350 : 400; // Key: responsive card width!
+
   const calculatedHeight = Math.round(cardWidth * CARD_ASPECT);
   const finalCardHeight = calculatedHeight; // Use provided height or calculated
 
@@ -22,10 +24,10 @@ export default function CardCarousel({
 
   const [trackIndex, setTrackIndex] = useState(START_OFFSET + (cardClickedIndex ?? 0));
   const [withTransition, setWithTransition] = useState(true);
-  const [visibleCount, setVisibleCount] = useState(isMobile ? 3 : 5);
+  const [visibleCount, setVisibleCount] = useState(5);
 
   useEffect(() => {
-    const newVisibleCount = isMobile ? 3 : 5;
+    const newVisibleCount = isMobile ? 1 : 5;
     setVisibleCount(newVisibleCount);
     // console.log("isMobile changed:", isMobile, "-> visibleCount:", newVisibleCount);
   }, [isMobile]); // Only depend on isMobile
@@ -41,6 +43,16 @@ export default function CardCarousel({
     }
   }, [cardClickedIndex, N, START_OFFSET, trackIndex]);
 
+  useEffect(() => {
+    if (viewportRef.current) {
+      const rect = viewportRef.current.getBoundingClientRect();
+      console.log("ACTUAL viewport size:", rect.width, "x", rect.height);
+      console.log("EXPECTED viewport width:", viewportWidth);
+      if (rect.width !== viewportWidth) {
+        console.log("🚨 WIDTH MISMATCH! Parent container is constraining width!");
+      }
+    }
+  });
 
   const handleTransitionEnd = () => {
     if (N === 0) return;
@@ -97,7 +109,16 @@ export default function CardCarousel({
   const trackWidth = looped.length * (cardWidth + gap) - gap;
   const cardLeft = trackIndex * (cardWidth + gap);
   const offsetX = (trackWidth / 2) - (cardLeft + cardWidth / 2);
-  console.log("Rendering with visibleCount:", visibleCount, "isMobile:", isMobile);
+
+
+  // console.log("=== CardCarousel Debug ===");
+  // console.log("visibleCount:", visibleCount);
+  // console.log("cardWidth:", cardWidth);
+  // console.log("gap:", gap);
+  // console.log("viewportWidth:", viewportWidth);
+  // console.log("trackWidth:", trackWidth);
+  // console.log("offsetX:", offsetX);
+  // console.log("========================");
 
   return (
     <div
@@ -105,6 +126,9 @@ export default function CardCarousel({
         position: "relative",
         overflow: "hidden",
         width: `${viewportWidth}px`,
+        minWidth: `${viewportWidth}px`, // Force minimum width
+        // maxWidth: "none", // Remove any max-width constraints
+
         height: `${finalCardHeight}px`,
         margin: "0 auto",
         background: "transparent",
@@ -112,6 +136,9 @@ export default function CardCarousel({
         justifyContent: "center",
         alignItems: "center",
         top: "50px",
+
+        border: "2px solid red", // DEBUG: Temporary border to see actual viewport size
+
         ...style,
       }}
     >

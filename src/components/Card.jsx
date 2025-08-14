@@ -19,6 +19,7 @@ export default function Card({
   onClick,
   hasBeenClicked,
   isMobile,
+  color = hasBeenClicked ? "#ffa53fff" : "white",
 }) {
   return (
     <div
@@ -30,12 +31,11 @@ export default function Card({
       onClick={onClick}
     >
       <CardBoard hasBeenClicked={hasBeenClicked} />
-      <CardTitleText hasBeenClicked={hasBeenClicked} title={truncateWithEllipsis(title, 45)} />
-      <CardDateText hasBeenClicked={hasBeenClicked} date={date} />
+      <CardTitleText color={color} title={truncateWithEllipsis(title, 48)} />
+      <CardDateText color={color} date={date} />
       <CardContentText
-        content={truncateWithEllipsis(contentText, isMobile ? 183 : 312)}
+        content={truncateWithEllipsis(contentText, isMobile ? 285 : 290)}
         hasBeenClicked={hasBeenClicked}
-        isMobile={isMobile}
       />
       <CardImage src={image} alt={title} website={website} />
     </div>
