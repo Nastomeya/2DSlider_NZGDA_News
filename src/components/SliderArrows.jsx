@@ -14,9 +14,9 @@ export default function SliderArrows({
 }) {
 
   const size = isMobile ? 50 : 70;
-  const offsetX = isMobile ? 100 : 450;
+  const offsetX = isMobile ? 100 : 300;
   const offsetY = isMobile ? 0 : 0;
-  const top = isMobile ? -30 : -85;
+  const top = isMobile ? -25 : -133;
   const space = isMobile ? 60 : 85;
   // Container that defines the coordinate space for bottom placement
   const containerRef = useRef(null);

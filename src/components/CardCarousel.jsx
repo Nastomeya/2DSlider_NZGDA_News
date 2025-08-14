@@ -29,7 +29,6 @@ export default function CardCarousel({
   useEffect(() => {
     const newVisibleCount = isMobile ? 1 : 5;
     setVisibleCount(newVisibleCount);
-    // console.log("isMobile changed:", isMobile, "-> visibleCount:", newVisibleCount);
   }, [isMobile]); // Only depend on isMobile
 
   useEffect(() => {
@@ -43,16 +42,16 @@ export default function CardCarousel({
     }
   }, [cardClickedIndex, N, START_OFFSET, trackIndex]);
 
-  useEffect(() => {
-    if (viewportRef.current) {
-      const rect = viewportRef.current.getBoundingClientRect();
-      console.log("ACTUAL viewport size:", rect.width, "x", rect.height);
-      console.log("EXPECTED viewport width:", viewportWidth);
-      if (rect.width !== viewportWidth) {
-        console.log("🚨 WIDTH MISMATCH! Parent container is constraining width!");
-      }
-    }
-  });
+  // useEffect(() => {
+  //   if (viewportRef.current) {
+  //     const rect = viewportRef.current.getBoundingClientRect();
+  //     console.log("ACTUAL viewport size:", rect.width, "x", rect.height);
+  //     console.log("EXPECTED viewport width:", viewportWidth);
+  //     if (rect.width !== viewportWidth) {
+  //       console.log("🚨 WIDTH MISMATCH! Parent container is constraining width!");
+  //     }
+  //   }
+  // });
 
   const handleTransitionEnd = () => {
     if (N === 0) return;
@@ -109,7 +108,7 @@ export default function CardCarousel({
   const trackWidth = looped.length * (cardWidth + gap) - gap;
   const cardLeft = trackIndex * (cardWidth + gap);
   const offsetX = (trackWidth / 2) - (cardLeft + cardWidth / 2);
-
+  const top = isMobile ? 50 : 80;
   return (
     <div
       style={{
@@ -117,18 +116,14 @@ export default function CardCarousel({
         overflow: "hidden",
         width: `${viewportWidth}px`,
         minWidth: `${viewportWidth}px`, // Force minimum width
-        // maxWidth: "none", // Remove any max-width constraints
-
         height: `${finalCardHeight}px`,
         margin: "0 auto",
         background: "transparent",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        top: "50px",
-
+        top: top,
         // border: "2px solid red", // DEBUG: Temporary border to see actual viewport size
-
         ...style,
       }}
     >

@@ -111,7 +111,7 @@ export default function CarouselContainer({
         />
       </div>
       {/* Decorative gamepads (2D version) */}
-      <Gamepad color="#3F4D6B" width={0.2} height={0.2} position={[0.3, 100]} rotation={45} />
+      <Gamepad color="#3F4D6B" width={0.2} height={0.2} position={[0.35, 160]} rotation={45} />
       <Gamepad color="#bababaff" width={0.28} height={0.28} position={[0.1, 120]} rotation={-26} />
     </div >
   );

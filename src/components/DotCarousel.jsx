@@ -13,8 +13,8 @@ export default function DotCarousel({
   const totalCount = Array.isArray(datas) ? datas.length : 0;
   const dotSize = isMobile ? 13 : 17;
   const space = isMobile ? 30 : dotSize * 2;
-  const offsetY = isMobile ? 35 : 40;
-  const top = isMobile ? 20 : 25;
+  const offsetY = isMobile ? 35 :85;
+  const top = isMobile ? 30 : 25;
 
   // This container defines the area where dots will be placed (absolute).
   const containerRef = useRef(null);

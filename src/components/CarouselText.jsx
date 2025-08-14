@@ -35,13 +35,14 @@ export default function CarouselText({
 
   const maxWidthPx = maxWidthUnits * scale;
   const fontSizePx = fontSizeUnits * scale;
+  const top = isMobile ? 0 : 10;
 
   return (
     <div
       style={{
         position: "absolute",
         left: "50%",
-        top: 0,
+        top: top,
         transform: "translateX(-50%)",
         maxWidth: maxWidthPx,
         width: "100%",
