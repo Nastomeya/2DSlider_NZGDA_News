@@ -9,7 +9,6 @@ export default function CardCarousel({
   isMobile = false,
   cardWidth = 286,
   gap = 16,
-  visibleCount = 7,
   style = {},
 }) {
   const N = datas.length;
@@ -23,6 +22,13 @@ export default function CardCarousel({
 
   const [trackIndex, setTrackIndex] = useState(START_OFFSET + (cardClickedIndex ?? 0));
   const [withTransition, setWithTransition] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(isMobile ? 3 : 5);
+
+  useEffect(() => {
+    const newVisibleCount = isMobile ? 3 : 5;
+    setVisibleCount(newVisibleCount);
+    // console.log("isMobile changed:", isMobile, "-> visibleCount:", newVisibleCount);
+  }, [isMobile]); // Only depend on isMobile
 
   useEffect(() => {
     if (typeof cardClickedIndex === "number" && N > 0) {
@@ -91,6 +97,7 @@ export default function CardCarousel({
   const trackWidth = looped.length * (cardWidth + gap) - gap;
   const cardLeft = trackIndex * (cardWidth + gap);
   const offsetX = (trackWidth / 2) - (cardLeft + cardWidth / 2);
+  console.log("Rendering with visibleCount:", visibleCount, "isMobile:", isMobile);
 
   return (
     <div

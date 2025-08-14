@@ -5,7 +5,7 @@ export default function CardImage({
   alt = "",
   width = 400,         // px
   height = 224.7,        // px
-  radius = 10,         // px
+  radius = 15,         // px
   opacity = 1,
   website,
   style = {},

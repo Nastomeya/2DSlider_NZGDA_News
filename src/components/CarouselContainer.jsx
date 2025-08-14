@@ -17,19 +17,10 @@ export default function CarouselContainer({
   const N = datas?.length ?? 0;
   const [currentIndex, setCurrentIndex] = useState(Math.floor(N / 2) || 0);
   const [autoPlayActive, setAutoPlayActive] = useState(isAutoPlaying);
-  const windowWidthRef = useRef(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   // TIMER REFS (so we can clear safely)
   const autoplayTimeoutRef = useRef(null);
   const resumeTimeoutRef = useRef(null);
-
-
-  // Track window resize
-  useEffect(() => {
-    const handleResize = () => windowWidthRef.current = window.innerWidth;
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   // Keep autoplay flag in sync with prop
   useEffect(() => setAutoPlayActive(isAutoPlaying), [isAutoPlaying]);
@@ -89,10 +80,12 @@ export default function CarouselContainer({
   if (N === 0) return null;
 
   // --- Responsive sizes ---
-  const containerWidth = Math.min(window.innerWidth * 0.95, 1200); // max width 1200px
-  const cardWidth = isMobile ? containerWidth * 0.25 : containerWidth * 0.18; // scale
+  const containerWidth = Math.min(
+    typeof window !== 'undefined' ? Math.min(window.innerWidth * 0.95, 1200) : 1200,
+    1200
+  );
+  const cardWidth = containerWidth * (isMobile ? 0.7 : 0.18); // scale
   const gap = cardWidth * 0.25;  // 5% of card width
-  const visibleCount = isMobile ? 3 : 5;
 
   const dotSize = Math.max(Math.min(cardWidth * 0.04, 30), 20); // min 8px, max 20px
   const dotSpacing = dotSize * 2;
@@ -105,13 +98,12 @@ export default function CarouselContainer({
   return (
     <div style={{ position: "relative", width: "100%" }}>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", minHeight: "300px" }}>
-        <CarouselText />
+        {/* <CarouselText /> */}
 
         <CardCarousel
           datas={datas}
           cardClickedIndex={currentIndex}
           onCardClick={handleSelectIndex}
-          visibleCount={visibleCount} // Reduced visible count for better fit
           isMobile={isMobile}
           cardWidth={isMobile ? 300 : 420}
           gap={gap}

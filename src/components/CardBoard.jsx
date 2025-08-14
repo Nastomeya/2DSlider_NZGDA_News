@@ -3,7 +3,7 @@ import React from 'react';
 export default function CardBoard({
   w = 2.386,      // width in your original units
   h = 3.4,        // height in your original units
-  r = 0.2,        // corner radius in your original units
+  r = 0.15,        // corner radius in your original units
   scale = 180,    // px per unit (change to make it bigger/smaller)
 
   hasBeenClicked,

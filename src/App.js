@@ -12,6 +12,7 @@ export default function App() {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [datas, setDatas] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < MOBILE_BP);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   // data
   useEffect(() => {
@@ -23,21 +24,45 @@ export default function App() {
     return () => { cancelled = true; };
   }, []);
 
-  // sizing (boring & accurate)
+  // Immediate mobile detection with useEffect (not useLayoutEffect)
+  useEffect(() => {
+    const handleResize = () => {
+      const newWidth = window.innerWidth;
+      const newIsMobile = newWidth < MOBILE_BP;
+
+      // Update both states immediately
+      setWindowWidth(newWidth);
+      setIsMobile(newIsMobile);
+    };
+
+    // Set initial values
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Optional: Also listen to orientationchange for mobile devices
+    window.addEventListener('orientationchange', () => {
+      // Small delay to ensure dimensions are updated after orientation change
+      setTimeout(handleResize, 100);
+    });
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
+    };
+  }, []);
+
+
   useLayoutEffect(() => {
     const el = stageRef.current;
     if (!el) return;
 
-    const mq = window.matchMedia(`(max-width:${MOBILE_BP - 1}px)`);
-
     const applySize = () => {
-      const mobile = mq.matches;
-      setIsMobile(mobile);
-
       if (USE_ASPECT_BOX) {
-        const target = mobile ? ASPECT.mobile : ASPECT.desktop;
-        const vw = window.innerWidth;
-        const vh = window.innerHeight * 0.9; // use up to 90% height
+        const target = isMobile ? ASPECT.mobile : ASPECT.desktop;
+        const vw = windowWidth;
+        const vh = window.innerHeight * 0.9;
         let width = Math.min(vw, Math.floor(vh * target));
         width = Math.min(width, MAX_STAGE_WIDTH);
         const height = Math.floor(width / target);
@@ -47,15 +72,15 @@ export default function App() {
         el.style.margin = "0 auto";
       } else {
         // Use full available width for carousel
-        const calculatedWidth = Math.min(window.innerWidth, MAX_STAGE_WIDTH);
+        const calculatedWidth = Math.min(windowWidth, MAX_STAGE_WIDTH);
 
         el.style.width = `${calculatedWidth}px`;
-        el.style.height = "";                // let children set height
-        el.style.maxWidth = "none";          // Remove any max-width constraints
+        el.style.height = "";
+        el.style.maxWidth = "none";
         el.style.margin = "0 auto";
       }
 
-      // tell parent iframe
+      // Tell parent iframe
       const h = el.getBoundingClientRect().height;
       if (window.parent && window.parent !== window) {
         window.parent.postMessage({ type: "iframe-resize", height: h }, "*");
@@ -63,13 +88,8 @@ export default function App() {
     };
 
     applySize();
-    mq.addEventListener?.("change", applySize);
-    window.addEventListener("resize", applySize);
-    return () => {
-      mq.removeEventListener?.("change", applySize);
-      window.removeEventListener("resize", applySize);
-    };
-  }, []);
+  }, [isMobile, windowWidth]); // Depend on both mobile state and window width
+
 
   if (datas === null) return <div style={{ padding: 16 }}>Loading…</div>;
 
@@ -78,14 +98,18 @@ export default function App() {
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
       style={{
-        background: "white", minHeight: "50vh", display: "flex",
+        background: "white",
+        minHeight: "50vh",
+        display: "flex",
         alignItems: "center",
         justifyContent: "center",
         padding: "20px 0px" // Add some vertical padding
       }}
     >
       <div ref={stageRef} style={{
-        width: "100%", display: "flex", justifyContent: "center",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
         overflow: "visible" // Allow carousel to show properly
       }}>
         <CarouselContainer datas={datas} isAutoPlaying={isAutoPlaying} isMobile={isMobile} />
