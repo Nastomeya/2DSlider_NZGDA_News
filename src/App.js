@@ -3,7 +3,7 @@ import CarouselContainer from "./components/CarouselContainer";
 import { sortedDatasByDate } from "./components/sortedDatasByDate";
 
 const MOBILE_BP = 768;
-const ASPECT = { mobile: 0.85, desktop: 2.0125 };
+const ASPECT = { mobile: 0.59, desktop: 1.7968 };//2.0125
 const MAX_STAGE_WIDTH = 3600; // Increased to accommodate 5 cards (5 * 420 + 4 * 60 + padding)
 const USE_ASPECT_BOX = false; // Changed to false for better carousel display
 

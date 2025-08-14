@@ -110,16 +110,6 @@ export default function CardCarousel({
   const cardLeft = trackIndex * (cardWidth + gap);
   const offsetX = (trackWidth / 2) - (cardLeft + cardWidth / 2);
 
-
-  // console.log("=== CardCarousel Debug ===");
-  // console.log("visibleCount:", visibleCount);
-  // console.log("cardWidth:", cardWidth);
-  // console.log("gap:", gap);
-  // console.log("viewportWidth:", viewportWidth);
-  // console.log("trackWidth:", trackWidth);
-  // console.log("offsetX:", offsetX);
-  // console.log("========================");
-
   return (
     <div
       style={{
@@ -137,7 +127,7 @@ export default function CardCarousel({
         alignItems: "center",
         top: "50px",
 
-        border: "2px solid red", // DEBUG: Temporary border to see actual viewport size
+        // border: "2px solid red", // DEBUG: Temporary border to see actual viewport size
 
         ...style,
       }}
