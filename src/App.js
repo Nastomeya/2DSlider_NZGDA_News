@@ -4,7 +4,7 @@ import { sortedDatasByDate } from "./components/sortedDatasByDate";
 
 const MOBILE_BP = 768;
 const ASPECT = { mobile: 0.85, desktop: 2.0125 };
-const MAX_STAGE_WIDTH = 1400; // Increased to accommodate 5 cards (5 * 420 + 4 * 60 + padding)
+const MAX_STAGE_WIDTH = 3600; // Increased to accommodate 5 cards (5 * 420 + 4 * 60 + padding)
 const USE_ASPECT_BOX = false; // Changed to false for better carousel display
 
 export default function App() {

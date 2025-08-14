@@ -14,7 +14,7 @@ export default function CardCarousel({
 
   const START_OFFSET = N;
   const CARD_ASPECT = isMobile ? 1.438 : 1.463;             // ≈ 1.425
-  const gap = 60;
+  const gap = 30;
   const cardWidth = isMobile ? 350 : 400; // Key: responsive card width!
 
   const calculatedHeight = Math.round(cardWidth * CARD_ASPECT);

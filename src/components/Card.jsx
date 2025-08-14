@@ -31,7 +31,7 @@ export default function Card({
       onClick={onClick}
     >
       <CardBoard hasBeenClicked={hasBeenClicked} />
-      <CardTitleText color={color} title={truncateWithEllipsis(title, 48)} />
+      <CardTitleText color={color} title={truncateWithEllipsis(title, 47)} />
       <CardDateText color={color} date={date} />
       <CardContentText
         content={truncateWithEllipsis(contentText, isMobile ? 285 : 290)}

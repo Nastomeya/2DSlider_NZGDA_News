@@ -6,7 +6,7 @@ import { mod } from "./mod";
 const BTN_DATAS = [{ id: 0 }, { id: 1 }];
 
 const DEFAULTS = {
-  space: 70,     // px center-to-center between the two arrows
+  space: 85,     // px center-to-center between the two arrows
   offsetX: 120,  // px to push the pair rightward (positive) or leftward (negative)
   offsetY: 24,   // px up from the bottom edge of the container
   size: 60,      // px button diameter
