@@ -79,29 +79,6 @@ export default function CarouselContainer({
 
   if (N === 0) return null;
 
-  // --- Responsive sizes ---
-  // const containerWidth = Math.min(
-  //   typeof window !== 'undefined' ? Math.min(window.innerWidth * 0.95, 1200) : 1200,
-  //   1200
-  // );
-  // const cardWidth = containerWidth * (isMobile ? 0.7 : 0.18); // scale
-  // const gap = cardWidth * 0.25;  // 5% of card width
-
-  // const dotSize = Math.max(Math.min(cardWidth * 0.04, 30), 20); // min 8px, max 20px
-  // const dotSpacing = dotSize * 2;
-
-  // const arrowSize = Math.max(Math.min(cardWidth * 0.1, 70), 60);
-  // const arrowOffsetX = cardWidth + (isMobile ? 50 : 350); // adjust relative to card width
-  // const dotOffsetY = 75;
-  // const arrowOffsetY = 45;
-
-  const dotSize = isMobile ? 20 : 30;
-  const dotSpacing = dotSize * 2;
-  const arrowSize = isMobile ? 60 : 70;
-  const arrowOffsetX = isMobile ? 50 : 350;
-  const dotOffsetY = 75;
-  const arrowOffsetY = 45;
-
   return (
     <div style={{ position: "relative", width: "100%", overflow: "hidden" }}>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", minHeight: "300px" }}>
@@ -116,14 +93,12 @@ export default function CarouselContainer({
         />
       </div>
 
-      <div style={{ position: "relative", width: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ position: "relative", width: "100%", display: "grid", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
         <DotCarousel
           datas={datas}
           cardClickedIndex={currentIndex}
           onDotClick={handleSelectIndex}
-          offsetY={dotOffsetY}        // px from bottom of the dots container
-          space={dotSpacing}    // Try increasing this to see spacing change
-          dotSize={dotSize}
+          isMobile={isMobile}
           style={{ zIndex: 1 }}
         />
 
@@ -131,10 +106,8 @@ export default function CarouselContainer({
           currentIndex={currentIndex}
           onBtnClick={handleSelectIndex}
           totalSlides={N}
-          offsetX={arrowOffsetX} // push the pair sideways if you want
-          offsetY={arrowOffsetY}
-          size={arrowSize}
-          style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", zIndex: 1 }}
+          isMobile={isMobile}
+          style={{ zIndex: 1 }}// style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", zIndex: 1 }}
         />
       </div>
       {/* Decorative gamepads (2D version) */}

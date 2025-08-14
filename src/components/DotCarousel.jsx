@@ -6,12 +6,15 @@ export default function DotCarousel({
   datas,
   onDotClick,
   cardClickedIndex,
-  offsetY = 20,  // px from bottom of the container
-  space,
-  dotSize,
+  isMobile,
   style = {},
 }) {
+
   const totalCount = Array.isArray(datas) ? datas.length : 0;
+  const dotSize = isMobile ? 17 : 23;
+  const space = isMobile ? 30 : dotSize * 2;
+  const offsetY = isMobile ? 35 : 40;
+  const top = isMobile ? 20 : 25;
 
   // This container defines the area where dots will be placed (absolute).
   const containerRef = useRef(null);
@@ -19,7 +22,6 @@ export default function DotCarousel({
     containerRef,
     totalCount,
     space,
-    offsetX: 0,
     offsetY, // distance from bottom edge
   });
 
@@ -32,9 +34,9 @@ export default function DotCarousel({
       ref={containerRef}
       style={{
         position: "relative",
+        top: top,
         height: Math.max(dotSize + offsetY * 2, 48), // enough height for dots
         width: "100%",         // Make container width fluid
-        maxWidth: 400,         // Or set max width as needed
         margin: "0 auto",
         ...style,
       }}

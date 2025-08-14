@@ -34,7 +34,7 @@ export default function Card({
       <CardTitleText color={color} title={truncateWithEllipsis(title, 47)} />
       <CardDateText color={color} date={date} />
       <CardContentText
-        content={truncateWithEllipsis(contentText, isMobile ? 285 : 290)}
+        content={truncateWithEllipsis(contentText, isMobile ? 285 : 285)}
         hasBeenClicked={hasBeenClicked}
       />
       <CardImage src={image} alt={title} website={website} />

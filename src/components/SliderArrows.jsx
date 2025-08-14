@@ -5,26 +5,21 @@ import { mod } from "./mod";
 
 const BTN_DATAS = [{ id: 0 }, { id: 1 }];
 
-const DEFAULTS = {
-  space: 85,     // px center-to-center between the two arrows
-  offsetX: 120,  // px to push the pair rightward (positive) or leftward (negative)
-  offsetY: 24,   // px up from the bottom edge of the container
-  size: 60,      // px button diameter
-};
-
 export default function SliderArrows({
   onBtnClick,
   currentIndex,
   totalSlides,
-  offsetX = DEFAULTS.offsetX,
-  offsetY = DEFAULTS.offsetY,
-  space = DEFAULTS.space,
-  size = DEFAULTS.size,
+  isMobile,
   style = {},
 }) {
+
+  const size = isMobile ? 50 : 70;
+  const offsetX = isMobile ? 100 : 450;
+  const offsetY = isMobile ? 0 : 0;
+  const top = isMobile ? -30 : -85;
+  const space = isMobile ? 60 : 85;
   // Container that defines the coordinate space for bottom placement
   const containerRef = useRef(null);
-
   // Position two buttons centered as a pair, shifted by offsetX and lifted by offsetY
   const { getButtonsStyle } = useButtonsPosition({
     containerRef,
@@ -39,8 +34,10 @@ export default function SliderArrows({
       ref={containerRef}
       style={{
         position: "relative",
+        top: top,
         height: Math.max(size + offsetY * 2, 64),
         pointerEvents: "none", // container transparent to clicks, buttons still clickable
+        margin: "0 auto",
         ...style,
       }}
     >
